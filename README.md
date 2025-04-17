@@ -9,7 +9,8 @@
 - Extracts and saves target URLs  
 - Easy-to-use CLI interface  
 - Lightweight and fast  
-
+- Unlimited websites scrap
+  
 ## Use Cases
 
 - Information gathering  
