@@ -10,13 +10,6 @@
 - Easy-to-use CLI interface  
 - Lightweight and fast  
 - Unlimited websites scrap
-  
-## Use Cases
-
-- Information gathering  
-- Vulnerability hunting  
-- OSINT (Open Source Intelligence)  
-- Recon in bug bounty hunting  
 
 ## Installation
 
