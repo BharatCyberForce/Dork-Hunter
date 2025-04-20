@@ -17,3 +17,4 @@
 git clone https://github.com/yourusername/DorkHunter.git
 cd DorkHunter
 pip install -r requirements.txt
+python3 DHunter.py
