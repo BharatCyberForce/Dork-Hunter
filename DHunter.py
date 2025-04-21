@@ -53,7 +53,7 @@ def scraper(dork, op):
                 if captcha(driver):
                     print(Fore.LIGHTRED_EX+"Uff! CaptchA Detected.")
 
-                    input(Fore.GREEN+"Press Enter After Solving The Captcha...")
+                    input(Fore.GREEN+"Press Enter After Solve Captcha...")
                     time.sleep(2)
 
                 links = driver.find_elements(By.XPATH, "//a[contains(@href, 'http')]")
