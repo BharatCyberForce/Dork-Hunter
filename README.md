@@ -9,7 +9,7 @@
 - Extracts and saves target URLs  
 - Easy-to-use CLI interface  
 - Lightweight and fast  
-- Unlimited websites scrap
+- Unlimited websites scrape
 
 ## Installation
 
