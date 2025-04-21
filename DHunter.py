@@ -12,17 +12,28 @@ from selenium.webdriver.firefox.service import Service
 
 def captcha(driver):
     try:
-        WebDriverWait(driver, 5).until(
+        WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.XPATH, "//iframe[contains(@src, 'recaptcha')]"))
         )
-        iframe = driver.find_element('xpath', "//iframe[@title='reCAPTCHA']")  
-        driver.switch_to.frame(iframe)  
-        checkbox = driver.find_element('css selector', '.recaptcha-checkbox-border')  
+        
+        iframe = driver.find_element(By.XPATH, "//iframe[@title='reCAPTCHA']")
+        driver.switch_to.frame(iframe)
+
+        checkbox = WebDriverWait(driver, 6).until(
+            EC.element_to_be_clickable((By.XPATH, "//div[@class='recaptcha-checkbox-checkmark']"))
+        )
         checkbox.click()
+
         time.sleep(2)
+        
+        driver.switch_to.default_content()
         return True
-    except:
+
+    except Exception as e:
+        print(Fore.LIGHTRED_EX + f"Error handling captcha: {e}")
+        driver.switch_to.default_content() 
         return False
+
 
 
 def scraper(dork, op):
@@ -33,22 +44,22 @@ def scraper(dork, op):
 
     try:
         #options = Options()
-        options.add_argument("-profile")
+        #options.add_argument("-profile")
         #options.add_argument(r"/home/evil_linux/.mozilla/firefox/3to5its4.default-esr")
         #driver = webdriver.Firefox(service=Service(), options=options)
         driver.get(f"https://www.google.com/")
-        WebDriverWait(driver, 4).until(EC.presence_of_element_located((By.NAME, "q")))
+        WebDriverWait(driver,2).until(EC.presence_of_element_located((By.NAME, "q")))
 
         search_box = driver.find_element(By.NAME, "q")
         search_box.send_keys(dork)
         search_box.send_keys(Keys.RETURN)
-        time.sleep(2)
+        time.sleep(1)
 
         with open(op, "w") as file:
             #for page in range(1, numb + 1):
             while True:
                 driver.find_element(By.TAG_NAME,'body').send_keys(Keys.END)
-                time.sleep(random.uniform(2, 4))
+                time.sleep(random.uniform(1, 3))
 
                 if captcha(driver):
                     print(Fore.LIGHTRED_EX+"Uff! CaptchA Detected.")
@@ -65,12 +76,12 @@ def scraper(dork, op):
                 try:
                     next_button = driver.find_element(By.ID, "pnnext")
                     next_button.click()
-                    time.sleep(random.uniform(2, 4))
+                    time.sleep(random.uniform(1, 3))
                 except:
                     try:
                         more=driver.find_element(By.XPATH,"//div[contains(@class, 'TOQyFc')]")#//span[contains(@class, 'PBBEhf') and text()='More search results']")))
                         more.click()
-                        time.sleep(random.uniform(2, 4))
+                        time.sleep(random.uniform(1, 3))
                     except:
                         print(Fore.LIGHTRED_EX+"Ops! No More Pages Not Found!.")
                         break
